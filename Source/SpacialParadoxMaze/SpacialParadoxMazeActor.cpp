@@ -60,5 +60,6 @@ void ASpacialParadoxMazeActor::Move(float angleDelta, const FVector& locationDel
 		FVector xAxis = matrix.GetCol(0);
 		FVector yAxis = matrix.GetCol(1);
 		this->traveler->Move(angleDelta, xAxis * locationDelta.X + yAxis * locationDelta.Y);
+		this->mazeComponent->RenderDirty();
 	}
 }

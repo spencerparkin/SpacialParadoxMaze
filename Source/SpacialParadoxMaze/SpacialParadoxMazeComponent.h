@@ -1,13 +1,13 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Components/SceneComponent.h"
+#include "Components/PrimitiveComponent.h"
 #include "Components/StaticMeshComponent.h"
 #include "SpacialParadoxMaze.h"
 #include "SpacialParadoxMazeComponent.generated.h"
 
 UCLASS(BlueprintType, Blueprintable)
-class USpacialParadoxMazeComponent : public USceneComponent
+class USpacialParadoxMazeComponent : public UPrimitiveComponent
 {
 	GENERATED_BODY()
 
@@ -16,32 +16,44 @@ public:
 	USpacialParadoxMazeComponent();
 	virtual ~USpacialParadoxMazeComponent();
 
+	virtual FPrimitiveSceneProxy* CreateSceneProxy() override;
+	virtual FBoxSphereBounds CalcBounds(const FTransform& LocalToWorld) const override;
 	virtual void TickComponent(float DeltaTime, enum ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
 	void Regenerate(int cellCount);
+	void RenderDirty(void) { this->redrawMaze = true; }
 
 	SpacialParadoxMaze* GetMaze() { return this->maze; }
 
 	void SetRenderTraveler(SpacialParadoxMaze::Traveler* givenRenderTraveler) { this->renderTraveler = givenRenderTraveler; }
 	SpacialParadoxMaze::Traveler* GetRenderTraveler() { return this->renderTraveler; }
 
-	static void DrawDebugLineTransformed(const FTransform& localToWorld, const FVector& pointA, const FVector& pointB, const FColor& color);
-
 private:
 
-	void ShowWall(SpacialParadoxMaze::Wall* wall, int& i);
+	void GenerateRenderWall(SpacialParadoxMaze::Wall* wall);
 
-	bool debugDraw;
+	class RenderWall
+	{
+	public:
+		RenderWall();
+		virtual ~RenderWall();
+
+		void DebugRender(void) const;
+
+		static void DrawDebugLineTransformed(const FTransform& localToWorld, const FVector& pointA, const FVector& pointB, const FColor& color);
+
+		float uScale;
+		float vScale;
+		FTransform localToWorld;
+	};
+
+	typedef TDoubleLinkedList<RenderWall> RenderWallList;
+
 	SpacialParadoxMaze* maze;
-	int32 maxWallMeshCount;
+	mutable RenderWallList renderWallList;
+	FCriticalSection renderWallListMutex;
+	bool redrawMaze;
+	bool debugDraw;
 	float wallHeight;
-	SpacialParadoxMaze::Traveler* renderTraveler;
-
-	// Note that I was using the UInstancedStaticMeshComponent here instead of
-	// an array of static mesh components, but the only thing that can change
-	// across instances is the transform.  I need to be able to change the
-	// material parameters for each mesh.  Since there won't be too many copies
-	// of the static mesh, I think this will be efficient enough.
-	UPROPERTY()
-	TArray<UStaticMeshComponent*> wallMeshComponentArray;
+	SpacialParadoxMaze::Traveler* renderTraveler;	// Rendering is performed from the perspective of this traveler.
 };
