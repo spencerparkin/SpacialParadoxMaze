@@ -1,0 +1,7 @@
+# Ignore stuff...
+.vs/
+Binaries/
+Build/
+DerivedDataCache/
+Intermediate/
+Saved/

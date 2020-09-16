@@ -1,0 +1,16 @@
+{
+	"FileVersion": 3,
+	"EngineAssociation": "{E3B96C8A-49D6-E376-268B-638E4A59A228}",
+	"Category": "",
+	"Description": "",
+	"Modules": [
+		{
+			"Name": "SpacialParadoxMaze",
+			"Type": "Runtime",
+			"LoadingPhase": "Default",
+			"AdditionalDependencies": [
+				"Engine"
+			]
+		}
+	]
+}
