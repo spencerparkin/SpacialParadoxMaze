@@ -1,0 +1,3 @@
+# Spacial Paradox Maze
+
+This is a 2.5-dimensional maze game written using Unreal Engine 4.  Unlike a typical maze, some weird things can happen.  For example, you can walk down a long hallway, make a left turn, then end up right where you started.  Similarly weird, you can walk 270-degrees around a corner at the end of a hall-way to find another hall-way.  In short, a cell in the maze can exist in more than one place, and more than one place can be occupied by a single cell.
