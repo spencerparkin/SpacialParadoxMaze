@@ -12,6 +12,9 @@ public:
 	AMazeGamePlayerController();
 	virtual ~AMazeGamePlayerController();
 
+	virtual void Tick(float DeltaTime) override;
+
+	void ExitGame(void);
 	void MoveLeftRight(float value);
 	void MoveBackwardForward(float value);
 	void LookLeftRight(float value);
@@ -21,4 +24,7 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Maze)
 	float moveSpeed;
+
+private:
+	float lastDeltaTime;
 };

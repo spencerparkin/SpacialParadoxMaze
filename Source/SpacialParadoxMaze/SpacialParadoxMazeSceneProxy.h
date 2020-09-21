@@ -1,6 +1,7 @@
 #pragma once
 
 #include "PrimitiveSceneProxy.h"
+#include "StaticMeshResources.h"
 
 class USpacialParadoxMazeComponent;
 
@@ -19,4 +20,8 @@ public:
 
 private:
 	const USpacialParadoxMazeComponent* mazeComponent;
+
+	mutable FStaticMeshVertexBuffers vertexBuffers;
+	mutable FLocalVertexFactory* vertexFactory;
+	mutable FDynamicMeshIndexBuffer32 indexBuffer;
 };

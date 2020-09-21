@@ -90,28 +90,6 @@ void USpacialParadoxMazeComponent::GenerateRenderWall(SpacialParadoxMaze::Wall* 
 	this->renderWallList.AddTail(renderWall);
 }
 
-/*
-
-
-			int j = wallMeshComponent->GetMaterialIndex("WallSurface");
-	if (j >= 0)
-	{
-		UMaterialInterface* materialInterface = wallMeshComponent->GetMaterial(j);
-		UMaterialInstanceDynamic* materialDynamic = Cast<UMaterialInstanceDynamic>(materialInterface);
-		if (!materialDynamic)
-		{
-			materialDynamic = UMaterialInstanceDynamic::Create(materialInterface, wallMeshComponent);
-			wallMeshComponent->SetMaterial(j, materialDynamic);
-		}
-
-		if (materialDynamic)
-		{
-			
-			materialDynamic->SetVectorParameterValue(TEXT("UVScale"), FLinearColor(FVector(uScale, vScale, 0.0f)));
-		}
-	}
-			*/
-
 //------------------------ USpacialParadoxMazeComponent::RenderWall ------------------------
 
 USpacialParadoxMazeComponent::RenderWall::RenderWall()

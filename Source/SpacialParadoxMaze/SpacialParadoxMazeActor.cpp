@@ -12,7 +12,7 @@ ASpacialParadoxMazeActor::ASpacialParadoxMazeActor()
 	this->mazeComponent = CreateDefaultSubobject<USpacialParadoxMazeComponent>(TEXT("SpacialParadoxMazeComponent"));
 	this->RootComponent = mazeComponent;
 
-	PrimaryActorTick.bCanEverTick = true;
+	this->PrimaryActorTick.bCanEverTick = true;
 
 	this->cameraComponent = CreateDefaultSubobject<UCameraComponent>("MazeCameraComponent");
 	this->cameraComponent->AttachToComponent(this->RootComponent, FAttachmentTransformRules::KeepRelativeTransform);

@@ -11,6 +11,8 @@ class USpacialParadoxMazeComponent : public UPrimitiveComponent
 {
 	GENERATED_BODY()
 
+	friend class SpacialParadoxMazeSceneProxy;
+
 public:
 
 	USpacialParadoxMazeComponent();
@@ -51,7 +53,7 @@ private:
 
 	SpacialParadoxMaze* maze;
 	mutable RenderWallList renderWallList;
-	FCriticalSection renderWallListMutex;
+	mutable FCriticalSection renderWallListMutex;
 	bool redrawMaze;
 	bool debugDraw;
 	float wallHeight;
